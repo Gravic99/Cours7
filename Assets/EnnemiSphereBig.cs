@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemiCube : Ennemi
+public class EnnemiSphereBig : Ennemi
 {
+
     GameObject player;
     public float speed = 5;
     Rigidbody rdb;
-    AudioSource audioSource;
-    public AudioMusic audioMusic;
-    public GameObject particuleSystemeDeath;
+    public GameObject EnnemiSphereSmall;
+    public int nombreEnnemieSphereApresMort = 2;
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rdb = GetComponent<Rigidbody>();
-        audioSource = GameObject.FindGameObjectWithTag("SoundPlayer").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         FollowPlayer();
-
     }
     private void FollowPlayer()
     {
@@ -30,8 +28,10 @@ public class EnnemiCube : Ennemi
     }
     public override void Die()
     {
-        audioSource.PlayOneShot(audioMusic.soundToPlay);
-        Instantiate(particuleSystemeDeath, gameObject.transform.position, Quaternion.identity);
+        for (int i = 0; i < nombreEnnemieSphereApresMort; i++)
+        {
+            Instantiate(EnnemiSphereSmall, (gameObject.transform.position + Vector3.forward * i *3), Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 }

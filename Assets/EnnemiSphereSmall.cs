@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemiCube : Ennemi
+public class EnnemiSphereSmall : Ennemi
 {
     GameObject player;
     public float speed = 5;
     Rigidbody rdb;
-    AudioSource audioSource;
-    public AudioMusic audioMusic;
-    public GameObject particuleSystemeDeath;
+    public int nombreEnnemieSphereApresMort = 2;
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rdb = GetComponent<Rigidbody>();
-        audioSource = GameObject.FindGameObjectWithTag("SoundPlayer").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,8 +27,7 @@ public class EnnemiCube : Ennemi
     }
     public override void Die()
     {
-        audioSource.PlayOneShot(audioMusic.soundToPlay);
-        Instantiate(particuleSystemeDeath, gameObject.transform.position, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 }
